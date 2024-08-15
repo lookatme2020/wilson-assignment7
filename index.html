@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Story Map of National Parks in Kenya</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    body {
+      background-color: white;
+      color: #fff;
+    }
+    #map {
+      height: 600px;
+      margin-top: 20px;
+    }
+    .popup-image {
+      max-width: 150px;
+      max-height: 100px;
+      display: block;
+      margin-bottom: 10px;
+    }
+    .navbar {
+      margin-bottom: 20px;
+    }
+    .section-header {
+      margin-top: 20px;
+      margin-bottom: 10px;
+      font-size: 24px;
+      color: #fff;
+    }
+    .section-content {
+      margin-bottom: 30px;
+    }
+  </style>
+</head>
+<body class="bg-danger">
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-danger">
+    <a class="navbar-brand" href="#">National Parks of Kenya</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  </nav>
+
+  <div class="container">
+    <div class="row">
+        <div class="col-lg-6">
+            <section id="map-section">
+                <h1 class="section-header">National Parks Map</h1>
+                <div id="map"></div>
+              </section>
+        </div>
+        <div class="col-lg-6">
+              <!-- Highlights Section -->
+              <section id="highlights" class="section-content">
+                <h2 class="section-header">Park Highlights</h2>
+                <ul>
+                  <li><strong>Maasai Mara National Reserve</strong> - Known for the Great Migration and exceptional wildlife viewing.</li>
+                  <li><strong>Amboseli National Park</strong> - Famous for its large elephant herds and views of Mount Kilimanjaro.</li>
+                  <li><strong>Tsavo National Park</strong> - Offers diverse landscapes and a large population of wildlife.</li>
+                  <li><strong>Nairobi National Park</strong> - A unique park near the capital with a variety of species.</li>
+                  <li><strong>Samburu National Reserve</strong> - Home to rare wildlife and beautiful landscapes.</li>
+                  <li><strong>Aberdare National Park</strong> - Features dense forests and diverse fauna.</li>
+                </ul>
+              </section>
+          
+              <!-- Wildlife Section -->
+              <section id="wildlife" class="section-content">
+                <h2 class="section-header">Wildlife in Kenya</h2>
+                <p>Kenya's national parks are home to a variety of wildlife, including:</p>
+                <ul>
+                  <li>Elephants</li>
+                  <li>Lions</li>
+                  <li>Rhinos</li>
+                  <li>Giraffes</li>
+                  <li>Zebras</li>
+                  <li>Hippos</li>
+                </ul>
+              </section>
+          
+              <!-- Visitor Information Section -->
+              <section id="visitor-info" class="section-content">
+                <h2 class="section-header">Visitor Information</h2>
+                <p>For visitors planning a trip to Kenya's national parks, consider the following tips:</p>
+                <ul>
+                  <li>Check park regulations and entry fees.</li>
+                  <li>Bring appropriate clothing and gear for safaris.</li>
+                  <li>Respect wildlife and follow park guidelines.</li>
+                  <li>Plan your visit during the dry season for better wildlife sightings.</li>
+                  <li>Book accommodations in advance, especially during peak seasons.</li>
+                </ul>
+              </section>
+        </div>
+    </div>
+
+    <!-- Map Section -->
+    
+  </div>
+
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script>
+    // Initialize the map
+    const map = L.map('map').setView([-1.286389, 36.817223], 6);
+
+    // Add a tile layer
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+
+    // National park data with images
+    const parksData = [
+      {
+        name: "Maasai Mara National Reserve",
+        lat: -1.527468,
+        lon: 35.152321,
+        description: "One of Kenya's most famous national parks known for its wildebeest migration.",
+        image: "maasai_mara.jpeg"
+      },
+      {
+        name: "Tsavo National Park",
+        lat: -2.758904,
+        lon: 38.291681,
+        description: "One of the largest national parks in Kenya, known for its diverse wildlife.",
+        image: "tsavo.jpeg"
+      },
+      {
+        name: "Nairobi National Park",
+        lat: -1.369167,
+        lon: 36.821944,
+        description: "A unique park located just outside the capital city, known for its rhino sanctuary.",
+        image: "nairobi.jpeg"
+      },
+      {
+        name: "Samburu National Reserve",
+        lat: 1.333333,
+        lon: 37.583333,
+        description: "Known for its unique wildlife and the rare Grevy's zebra.",
+        image: "samburu.jpeg"
+      },
+      {
+        name: "Aberdare National Park",
+        lat: -0.550000,
+        lon: 36.833333,
+        description: "Famous for its dense forests and diverse flora and fauna.",
+        image: "aberdare.jpeg"
+      }
+    ];
+
+    parksData.forEach(park => {
+      const marker = L.marker([park.lat, park.lon]).addTo(map);
+      marker.bindPopup(`
+        <strong>${park.name}</strong><br>
+        <img src="${park.image}" alt="${park.name}" class="popup-image"><br>
+        ${park.description}
+      `);
+    });
+  </script>
+</body>
+</html>
